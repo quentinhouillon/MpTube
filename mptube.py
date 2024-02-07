@@ -3,6 +3,7 @@ from tkinter import PhotoImage, messagebox
 from pytube import YouTube
 from datetime import datetime
 from pathlib import Path
+import sys
 import ssl
 
 
@@ -14,6 +15,10 @@ class App(tk.CTk):
         self.title("MpTube")
         self.geometry("550x380")
         self.resizable(False, False)
+        if sys.platform != "win32":
+            self.iconphoto(True, PhotoImage(file="img/icon.png"))
+        else:
+            self.iconbitmap("img/icon.ico")
         self.focus_force()
 
         # LOAD IMAGE
@@ -112,7 +117,10 @@ class TopLevel(tk.CTkToplevel):
 
     def _on_completed(self, _, file):
         self.destroy()
-        messagebox.showinfo("Succès", "Téléchargement terminé")
+        messagebox.showinfo(
+            "Succès",
+            "Téléchargement terminé, vous trouverez votre vidéo dans votre \
+dossier téléchargement")
 
 
 def main():
